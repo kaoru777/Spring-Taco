@@ -15,4 +15,3 @@ Images are from https://unsplash.com
 I'm not using lombok, instead I'm using the build-in getter-setter creation functions from my eclipse IDE.
 
 # Issues
-For currently no known reasons, the validation is not working.
