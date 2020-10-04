@@ -1,6 +1,14 @@
 package tacos.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ingredient {
+
+	public Ingredient() {
+		super();
+	}
 
 	public Ingredient(String id, String name, Type type) {
 		this.id = id;
@@ -8,6 +16,7 @@ public class Ingredient {
 		this.type = type;
 	}
 
+	@Id
 	private String id;
 	private String name;
 	private Type type;

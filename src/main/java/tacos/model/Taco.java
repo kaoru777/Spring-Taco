@@ -1,16 +1,54 @@
 package tacos.model;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Taco {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private Date createdAt;
+
 	@NotNull
 	@Size(min = 5, message = "Name must be at least 5 characters long")
 	private String name;
 
 	@Size(min = 1, message = "You must choose at least 1 ingredient")
-	private List<String> ingredients;
+	@ManyToMany(targetEntity = Ingredient.class)
+	private List<Ingredient> ingredients = new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	@PrePersist
+	void createdAt() {
+		this.createdAt = new Date();
+	}
 
 	public String getName() {
 		return name;
@@ -20,12 +58,13 @@ public class Taco {
 		this.name = name;
 	}
 
-	public List<String> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<String> ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+
 
 }
